@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NutriPlan - Food, Nutrition & Fitness Planner</title>
+    
+    <!-- Meta SEO & Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥑</text></svg>" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body class="bg-gray-50 text-gray-900 font-sans min-h-screen">
+    
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- Sidebar Navigation Drawer -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-72 bg-white border-r border-gray-200 flex flex-col z-40">
+      
+      <!-- Brand Logo Header -->
+      <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+        <a href="#meals" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-xs">
+            <i class="fa-solid fa-leaf text-lg"></i>
+          </div>
+          <div>
+            <span class="text-xl font-bold tracking-tight text-gray-900 flex items-center">
+              NutriPlan
+            </span>
+            <p class="text-[11px] text-gray-400 font-medium">Your Wellness Journey</p>
+          </div>
+        </a>
+
+        <!-- Mobile Close Drawer Button -->
+        <button id="sidebar-close-btn" class="hidden w-8 h-8 rounded-lg bg-gray-100 text-gray-400 hover:text-gray-800 items-center justify-center text-sm" aria-label="Close Sidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+        <p class="px-3 text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-3">MAIN MENU</p>
+        
+        <a href="#meals" data-route="meals" class="flex items-center gap-3 px-3.5 py-2.5 bg-emerald-50 text-emerald-700 font-semibold rounded-xl transition-all">
+          <i class="fa-solid fa-utensils text-sm text-emerald-600 w-5 text-center"></i>
+          <span>Meals & Recipes</span>
+        </a>
+
+        <a href="#scanner" data-route="scanner" class="flex items-center gap-3 px-3.5 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium rounded-xl transition-all">
+          <i class="fa-solid fa-barcode text-sm text-gray-400 w-5 text-center"></i>
+          <span>Product Scanner</span>
+        </a>
+
+        <a href="#foodlog" data-route="foodlog" class="flex items-center gap-3 px-3.5 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium rounded-xl transition-all">
+          <i class="fa-solid fa-clipboard-list text-sm text-gray-400 w-5 text-center"></i>
+          <span>Food Log</span>
+        </a>
+      </nav>
+
+      <!-- User profile at the bottom of sidebar -->
+      <div class="p-4 border-t border-gray-100 m-2">
+        <div class="flex items-center justify-between p-2 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
+          <div class="flex items-center gap-3 min-w-0">
+            <img 
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" 
+              alt="User" 
+              class="w-9 h-9 rounded-full object-cover shrink-0 border border-gray-200" 
+            />
+            <div class="min-w-0">
+              <p class="text-xs font-bold text-gray-900 truncate">Youssef Amir</p>
+              <p class="text-[10px] text-gray-400">Premium Member</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-down text-[10px] text-gray-400"></i>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Layout -->
+    <div id="main-content" class="lg:ml-72 flex flex-col min-h-screen">
+      
+      <!-- Sticky Header -->
+      <header id="header" class="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-xs">
+        <div class="px-8 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <button id="header-menu-btn" class="hidden w-10 h-10 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 items-center justify-center text-base transition-colors" aria-label="Toggle menu">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <div>
+              <h1 id="header-title" class="text-2xl font-bold text-gray-900">
+                Meals & Recipes
+              </h1>
+              <p id="header-subtitle" class="text-xs text-gray-500 mt-1">
+                Discover delicious and nutritious recipes tailored for you
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main App Container -->
+      <main class="flex-1">
+
+        <!-- 1. Meals & Recipes View -->
+        <div id="meals-view-container">
+          
+          <!-- Search and cuisine filters -->
+          <section id="search-filters-section" class="px-8 py-6 bg-white border-b border-gray-200">
+            <!-- Search Bar -->
+            <div class="mb-5">
+              <div class="relative w-full">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <input 
+                  type="text" 
+                  id="recipe-search-input" 
+                  placeholder="Search recipes by name, ingredient, or cuisine..." 
+                  class="w-full pl-11 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder:text-gray-400 outline-none"
+                />
+              </div>
+            </div>
+
+            <!-- Cuisine pills -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 category-scroll-container" id="cuisines-pills-container">
+              <!-- Cuisine items added by JavaScript -->
+            </div>
+          </section>
+
+          <!-- Categories section -->
+          <section id="meal-categories-section" class="px-8 py-6 bg-white border-b border-gray-200">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h2 class="text-lg font-bold text-gray-900">
+                  Browse by Meal Type
+                </h2>
+                <p class="text-xs text-gray-500 mt-0.5">
+                  Find the perfect recipe for any time of day
+                </p>
+              </div>
+              <button id="view-all-categories-btn" class="text-emerald-600 font-semibold text-xs hover:text-emerald-700 flex items-center gap-1 transition-colors">
+                <span>View All</span>
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+            </div>
+
+            <!-- Category cards grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" id="categories-cards-grid">
+              <!-- Categories added by JavaScript -->
+            </div>
+          </section>
+
+          <!-- Recipes grid -->
+          <section id="all-recipes-section" class="px-8 py-8 bg-gray-50">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <h2 class="text-xl font-bold text-gray-900">All Recipes</h2>
+                <p id="recipes-count-text" class="text-xs text-gray-500 mt-0.5">Loading recipes...</p>
+              </div>
+
+              <!-- Grid / List View Switcher -->
+              <div class="flex bg-gray-200 rounded-lg p-1" id="view-toggle">
+                <button id="grid-view-btn" class="px-3 py-1.5 bg-white rounded-md shadow-xs text-gray-800" title="Grid View">
+                  <i class="fa-solid fa-table-cells text-xs"></i>
+                </button>
+                <button id="list-view-btn" class="px-3 py-1.5 text-gray-500 hover:text-gray-800" title="List View">
+                  <i class="fa-solid fa-list text-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Recipe cards container -->
+            <div id="recipes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <!-- Cards added by JavaScript -->
+            </div>
+          </section>
+
+        </div>
+
+        <!-- 2. Recipe Detail View -->
+        <section id="recipe-detail-modal" class="px-8 py-8 bg-white animate-fade-in" style="display: none;">
+          <!-- Recipe details loaded here -->
+        </section>
+
+        <!-- 3. Product Scanner View -->
+        <section id="products-section" class="px-8 py-8 bg-gray-50 animate-fade-in" style="display: none;">
+          <!-- Products loaded here -->
+        </section>
+
+        <!-- 4. Food Log View -->
+        <section id="foodlog-section" class="px-8 py-8 bg-gray-50 animate-fade-in" style="display: none;">
+          <!-- Daily logs loaded here -->
+        </section>
+
+      </main>
+
+    </div>
+
+    <!-- Main JavaScript application -->
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "nutriplan",
+  "version": "1.0.0",
+  "description": "NutriPlan - Food, Nutrition & Meal Planning app (HTML, Tailwind CSS, TypeScript)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "serve . --listen 8080 --no-clipboard",
+    "dev": "npm run build && npm start"
+  },
+  "keywords": [
+    "nutrition",
+    "meals",
+    "typescript",
+    "tailwind"
+  ],
+  "author": "Youssef Amir",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.6",
+    "typescript": "^5.9.3"
+  }
+}
